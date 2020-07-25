@@ -60,7 +60,7 @@
             <!-- Buses Manguera 1 en orden de prioridad [1, 2, 3 etc] priority:1 y gun:1 ... priority:2 y gun:1 -->
             <div class="positions">
                 <!-- for -->
-                <mat-card *ngFor="let item of parkings[parkin.key].socsGun1" class="occupied">% {{item}}</mat-card>
+                <mat-card *ngFor="let item of parkings[parkin.key].socsGun1" [ngClass]="item.stateClass">{{item.percent}}</mat-card>
             </div>
             <!-- Cargadores del mismo largo q las prioridades -->
             <div class="chargers">
@@ -70,7 +70,7 @@
             <!-- Buses Manguera 2 en orden de prioridad [1, 2, 3 etc] -->
             <div class="positions">
                 <!-- for -->
-                <mat-card *ngFor="let item of parkings[parkin.key].socsGun2" class="occupied">% {{item}}</mat-card>
+                <mat-card *ngFor="let item of parkings[parkin.key].socsGun2" [ngClass]="item.stateClass">{{item.percent}}</mat-card>
             </div>
         </mat-card-content>
     </mat-card>

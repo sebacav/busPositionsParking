@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BusService } from 'src/app/shared/services/bus.service';
-import { Bus, Parking } from '../../../app/shared/models/Bus';
+import { Bus, Parking, socGun } from '../../../app/shared/models/Bus';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -27,7 +27,23 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.createParkings();
+  }
 
+  send(){
+    console.log(this.dataForm.value);
+    var data = {
+      soc: this.dataForm.value.soc,
+      charger: this.dataForm.value.charger,
+    }
+    this.busService.SendData(data).subscribe(
+      resp => {
+        console.log(resp);
+      }
+    );
+  }
+
+  createParkings(){
     this.busesList.forEach(element => {
 
       if (this.parkings[element.parking_zone] == undefined){
@@ -45,9 +61,11 @@ export class HomeComponent implements OnInit {
         this.parkings[element.parking_zone].socsGun1 = [];
         this.parkings[element.parking_zone].socsGun2 = [];
         if (element.gun == 1){
-          this.parkings[element.parking_zone].socsGun1.push(element.soc);
+          // this.parkings[element.parking_zone].socsGun1.push(element.soc);
+
+          this.parkings[element.parking_zone].socsGun1.push( this.setStateOfChargeClass(element) );
         } else {
-          this.parkings[element.parking_zone].socsGun2.push(element.soc);
+          this.parkings[element.parking_zone].socsGun2.push(this.setStateOfChargeClass(element));
         }
       } else {
         if (!this.parkings[element.parking_zone].chargers.includes(element.charger)){
@@ -57,9 +75,9 @@ export class HomeComponent implements OnInit {
         }
 
         if (element.gun == 1){
-          this.parkings[element.parking_zone].socsGun1.push(element.soc);
+          this.parkings[element.parking_zone].socsGun1.push(this.setStateOfChargeClass(element));
         } else {
-          this.parkings[element.parking_zone].socsGun2.push(element.soc);
+          this.parkings[element.parking_zone].socsGun2.push(this.setStateOfChargeClass(element));
         }
 
       }
@@ -67,20 +85,25 @@ export class HomeComponent implements OnInit {
     });
 
     console.log(this.parkings);
-    
   }
 
-  send(){
-    console.log(this.dataForm.value);
-    var data = {
-      soc: this.dataForm.value.soc,
-      charger: this.dataForm.value.charger,
-    }
-    this.busService.SendData(data).subscribe(
-      resp => {
-        console.log(resp);
+  setStateOfChargeClass(element: Bus): socGun{
+    var aux: socGun = null;
+
+    if (element.soc > 0 ){
+      aux =  {
+        percent: "% "+element.soc.toString(),
+        stateClass: "occupied"
       }
-    );
+    } else {
+      aux =  {
+        percent: "Free",
+        stateClass: "free"
+      }
+    }
+    console.log(aux);
+    
+    return aux
   }
 
 }

@@ -7,10 +7,23 @@ export class Bus {
     gun: number;
 }
 
+// export class Parking {
+//     chargers: string[];
+//     prioritys: number[];
+//     socsGun1: number[];
+//     socsGun2: number[];
+//     constructor(){}
+// }
+
 export class Parking {
     chargers: string[];
     prioritys: number[];
-    socsGun1: number[];
-    socsGun2: number[];
+    socsGun1: socGun[];
+    socsGun2: socGun[];
     constructor(){}
+}
+
+export class socGun {
+    percent: string;
+    stateClass: string;
 }
