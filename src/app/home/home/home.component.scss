@@ -10,6 +10,12 @@
     justify-content: space-between;
 }
 
+.chargers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 .occupied{
     background-color: red;
     font-size: medium;
@@ -22,4 +28,8 @@
     font-size: medium;
     font-weight: bold;
     border-style: solid;
+}
+
+.chargerIcon{
+    inline-size: auto;
 }
