@@ -60,9 +60,8 @@ export class HomeComponent implements OnInit {
         // Socs
         this.parkings[element.parking_zone].socsGun1 = [];
         this.parkings[element.parking_zone].socsGun2 = [];
+        
         if (element.gun == 1){
-          // this.parkings[element.parking_zone].socsGun1.push(element.soc);
-
           this.parkings[element.parking_zone].socsGun1.push( this.setStateOfChargeClass(element) );
         } else {
           this.parkings[element.parking_zone].socsGun2.push(this.setStateOfChargeClass(element));
@@ -70,8 +69,6 @@ export class HomeComponent implements OnInit {
       } else {
         if (!this.parkings[element.parking_zone].chargers.includes(element.charger)){
           this.parkings[element.parking_zone].chargers.push(element.charger);
-          // this.parkings[element.parking_zone].prioritys.push(element.priority);
-          // this.parkings[element.parking_zone].socs.push(element.soc);
         }
 
         if (element.gun == 1){
