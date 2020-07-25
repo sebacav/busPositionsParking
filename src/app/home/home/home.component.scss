@@ -1,0 +1,25 @@
+.parkings {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.positions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.occupied{
+    background-color: red;
+    font-size: medium;
+    font-weight: bold;
+    border-style: solid;
+}
+
+.free{
+    background-color: green;
+    font-size: medium;
+    font-weight: bold;
+    border-style: solid;
+}
