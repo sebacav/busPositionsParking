@@ -1,86 +1,71 @@
-<div>
-    <p>dasdasd</p>
-    <input type="text">
-</div>
+<br>
+<mat-card class="simulator">
+    <mat-card-header>
+        <mat-card-title>Simulate</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-form-field>
+            <input type="number" matInput placeholder="Ex. 80%">
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput placeholder="Ex. C04">
+        </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button>Send</button>
+    </mat-card-actions>
+</mat-card>
 <br>
 <div class="parkings">
 
-    <mat-card>
+    <mat-card class="parkinCard">
         <mat-card-header>
-            <mat-card-title>Parking 1</mat-card-title>
+            <mat-card-title>Parking Num: Test</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <div class="positions">
-                <mat-card class="occupied">% 92</mat-card>
-                <mat-card class="occupied">% 40</mat-card>
+                <mat-card> Gun 1</mat-card>
+                <mat-card class="occupied">% 92</mat-card><!--  Prioridad 1 manguera 1 -->
+                <mat-card class="occupied">% 40</mat-card><!--  Prioridad 2 manguera 1 -->
                 <mat-card class="occupied">% 30</mat-card>
-                <mat-card class="free">Libre</mat-card>
+                <mat-card class="free">Free</mat-card>
             </div>
             <div class="chargers">
+                <p></p>
                 <p>C1</p>
                 <p>C2</p>
                 <p>C3</p>
                 <p>C4</p>
             </div>
             <div class="positions">
-                <mat-card class="occupied">% 90</mat-card>
-                <mat-card class="occupied">% 22</mat-card>
-                <mat-card class="free">Libre</mat-card>
-                <mat-card class="free">Libre</mat-card>
+                <mat-card> Gun 2</mat-card>
+                <mat-card class="occupied">% 90</mat-card> <!--  Prioridad 1 manguera 2 -->
+                <mat-card class="occupied">% 22</mat-card> <!--  Prioridad 2 manguera 2 -->
+                <mat-card class="free">Fee</mat-card>
+                <mat-card class="free">Free</mat-card>
             </div>
         </mat-card-content>
     </mat-card>
     
-
-    <mat-card>
+    <mat-card *ngFor="let parkin of parkings | keyvalue" class="parkinCard">
         <mat-card-header>
-            <mat-card-title>Parking 1</mat-card-title>
+            <mat-card-title>Parking Num: {{parkin.key}}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
+            <!-- Buses Manguera 1 en orden de prioridad [1, 2, 3 etc] priority:1 y gun:1 ... priority:2 y gun:1 -->
             <div class="positions">
-                <mat-card class="occupied">% 92</mat-card>
-                <mat-card class="occupied">% 40</mat-card>
-                <mat-card class="occupied">% 30</mat-card>
-                <mat-card class="free">Libre</mat-card>
+                <!-- for -->
+                <mat-card *ngFor="let item of parkings[parkin.key].socsGun1" class="occupied">% {{item}}</mat-card>
             </div>
+            <!-- Cargadores del mismo largo q las prioridades -->
             <div class="chargers">
-                <p>C5</p>
-                <p>C6</p>
-                <p>C7</p>
-                <p>C8</p>
+                <!-- for -->
+                <p *ngFor="let item of parkings[parkin.key].chargers">{{item}}</p>
             </div>
+            <!-- Buses Manguera 2 en orden de prioridad [1, 2, 3 etc] -->
             <div class="positions">
-                <mat-card class="occupied">% 90</mat-card>
-                <mat-card class="occupied">% 22</mat-card>
-                <mat-card class="free">Libre</mat-card>
-                <mat-card class="free">Libre</mat-card>
-            </div>
-        </mat-card-content>
-    </mat-card>
-
-
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>Parking 1</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <div class="positions">
-                <mat-card class="occupied">% 92</mat-card>
-                <mat-card class="occupied">% 40</mat-card>
-                <mat-card class="occupied">% 30</mat-card>
-                <mat-card class="free">Libre</mat-card>
-            </div>
-            <div class="chargers">
-                <p>C9</p>
-                <p>C10</p>
-                <p>C11</p>
-                <p>C12</p>
-            </div>
-            <div class="positions">
-                <mat-card class="occupied">% 90</mat-card>
-                <mat-card class="occupied">% 22</mat-card>
-                <mat-card class="free">Libre</mat-card>
-                <mat-card class="free">Libre</mat-card>
+                <!-- for -->
+                <mat-card *ngFor="let item of parkings[parkin.key].socsGun2" class="occupied">% {{item}}</mat-card>
             </div>
         </mat-card-content>
     </mat-card>

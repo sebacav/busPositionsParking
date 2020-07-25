@@ -13,39 +13,28 @@ export class BusService {
     {"charger": "C1", "marquesina": "m1", "priority": 1, "parking_zone": 1, "soc": 50, "gun": 1 },
     {"charger": "C1", "marquesina": "m1", "priority": 1, "parking_zone": 1, "soc": null, "gun": 2 },
 
-    {"charger": "C2", "marquesina": "m1", "priority": 1, "parking_zone": 1, "soc": 50, "gun": 1 },
-    {"charger": "C2", "marquesina": "m1", "priority": 1, "parking_zone": 1, "soc": 50, "gun": 2 },
+    {"charger": "C2", "marquesina": "m1", "priority": 2, "parking_zone": 1, "soc": 77, "gun": 1 },
+    {"charger": "C2", "marquesina": "m1", "priority": 2, "parking_zone": 1, "soc": 22, "gun": 2 },
 
-    {"charger": "C3", "marquesina": "m1", "priority": 1, "parking_zone": 1, "soc": 50, "gun": 1 },
-    {"charger": "C3", "marquesina": "m1", "priority": 1, "parking_zone": 1, "soc": 50, "gun": 2 },
+    {"charger": "C3", "marquesina": "m1", "priority": 2, "parking_zone": 1, "soc": 50, "gun": 1 },
+    {"charger": "C3", "marquesina": "m1", "priority": 2, "parking_zone": 1, "soc": 21, "gun": 2 },
 
-    {"charger": "C4", "marquesina": "m1", "priority": 1, "parking_zone": 1, "soc": 50, "gun": 1 },
-    {"charger": "C4", "marquesina": "m1", "priority": 1, "parking_zone": 1, "soc": 50, "gun": 2 },
-
-
-
-    {"charger": "C5", "marquesina": "m2", "priority": 2, "parking_zone": 1, "soc": 50, "gun": 1 },
-    {"charger": "C5", "marquesina": "m2", "priority": 2, "parking_zone": 1, "soc": null, "gun": 2 },
-
-    {"charger": "C6", "marquesina": "m2", "priority": 2, "parking_zone": 1, "soc": 50, "gun": 1 },
-    {"charger": "C6", "marquesina": "m2", "priority": 2, "parking_zone": 1, "soc": 50, "gun": 2 },
-
-    {"charger": "C7", "marquesina": "m2", "priority": 2, "parking_zone": 1, "soc": 50, "gun": 1 },
-    {"charger": "C7", "marquesina": "m2", "priority": 2, "parking_zone": 1, "soc": 50, "gun": 2 },
-    
-    {"charger": "C8", "marquesina": "m2", "priority": 2, "parking_zone": 1, "soc": 50, "gun": 1 },
-    {"charger": "C8", "marquesina": "m2", "priority": 2, "parking_zone": 1, "soc": 50, "gun": 2 },
+    {"charger": "C4", "marquesina": "m1", "priority": 3, "parking_zone": 1, "soc": 50, "gun": 1 },
+    {"charger": "C4", "marquesina": "m1", "priority": 3, "parking_zone": 1, "soc": 50, "gun": 2 },
 
 
 
-    {"charger": "C9", "marquesina": "m3", "priority": 3, "parking_zone": 1, "soc": 50, "gun": 1 },
-    {"charger": "C9", "marquesina": "m3", "priority": 3, "parking_zone": 1, "soc": null, "gun": 2 },
-    {"charger": "C10", "marquesina": "m3", "priority": 3, "parking_zone": 1, "soc": 50, "gun": 1 },
-    {"charger": "C10", "marquesina": "m3", "priority": 3, "parking_zone": 1, "soc": 50, "gun": 2 },
-    {"charger": "C11", "marquesina": "m3", "priority": 3, "parking_zone": 1, "soc": 50, "gun": 1 },
-    {"charger": "C11", "marquesina": "m3", "priority": 3, "parking_zone": 1, "soc": 50, "gun": 2 },
-    {"charger": "C12", "marquesina": "m3", "priority": 3, "parking_zone": 1, "soc": 50, "gun": 1 },
-    {"charger": "C12", "marquesina": "m3", "priority": 3, "parking_zone": 1, "soc": 50, "gun": 2 }
+    {"charger": "C5", "marquesina": "m2", "priority": 1, "parking_zone": 2, "soc": 50, "gun": 1 },
+    {"charger": "C5", "marquesina": "m2", "priority": 1, "parking_zone": 2, "soc": null, "gun": 2 },
+
+    {"charger": "C6", "marquesina": "m2", "priority": 2, "parking_zone": 2, "soc": 50, "gun": 1 },
+    {"charger": "C6", "marquesina": "m2", "priority": 2, "parking_zone": 2, "soc": 50, "gun": 2 },
+
+    {"charger": "C7", "marquesina": "m2", "priority": 3, "parking_zone": 2, "soc": 50, "gun": 1 },
+    {"charger": "C7", "marquesina": "m2", "priority": 3, "parking_zone": 2, "soc": 50, "gun": 2 },
+
+    {"charger": "C8", "marquesina": "m2", "priority": 4, "parking_zone": 2, "soc": 50, "gun": 1 },
+    {"charger": "C8", "marquesina": "m2", "priority": 4, "parking_zone": 2, "soc": 30, "gun": 2 }
   ]
 
   constructor() { 
