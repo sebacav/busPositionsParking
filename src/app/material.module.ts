@@ -32,7 +32,6 @@ import {
   ],
   imports: [
     CommonModule,
-    MatToolbarModule,
     MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCardModule, MatProgressBarModule,
     MatGridListModule, MatSidenavModule, MatToolbarModule, MatListModule,
     MatTooltipModule, MatDividerModule, MatSliderModule, MatProgressSpinnerModule, MatSnackBarModule,
@@ -56,7 +55,6 @@ import {
     MatCheckboxModule
   ],
   exports: [
-    MatToolbarModule,
     MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCardModule, MatProgressBarModule,
     MatGridListModule, MatSidenavModule, MatToolbarModule, MatListModule,
     MatTooltipModule, MatDividerModule, MatSliderModule, MatProgressSpinnerModule, MatSnackBarModule,
