@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BusService } from 'src/app/shared/services/bus.service';
 import { Bus, Parking } from '../../../app/shared/models/Bus';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,13 +11,19 @@ import { Bus, Parking } from '../../../app/shared/models/Bus';
 export class HomeComponent implements OnInit {
   
   busesList: Bus[] = [];
+  dataForm: FormGroup;
 
   parkings: { [index: number]: Parking; } = {};
 
   constructor(
-    private busService: BusService
+    private busService: BusService,
+    private fb: FormBuilder
   ) {
     this.busesList = this.busService.Test();
+    this.dataForm = this.fb.group({
+      soc: ['', Validators.required],
+      charger: ['', Validators.required],
+    });
   }
 
   ngOnInit() {
@@ -60,6 +68,19 @@ export class HomeComponent implements OnInit {
 
     console.log(this.parkings);
     
+  }
+
+  send(){
+    console.log(this.dataForm.value);
+    var data = {
+      soc: this.dataForm.value.soc,
+      charger: this.dataForm.value.charger,
+    }
+    this.busService.SendData(data).subscribe(
+      resp => {
+        console.log(resp);
+      }
+    );
   }
 
 }

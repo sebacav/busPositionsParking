@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Bus } from '../models/Bus';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { timeout, retry, catchError, map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
 })
 export class BusService {
+
+  private url = 'http://test.cl/dasd'
 
   busesList: Bus[] = []
 
@@ -37,12 +41,23 @@ export class BusService {
     {"charger": "C8", "marquesina": "m2", "priority": 4, "parking_zone": 2, "soc": 30, "gun": 2 }
   ]
 
-  constructor() { 
+  constructor(
+    private http: HttpClient
+  ) { 
     this.busesList = this.jsonRecibido;
   }
 
   Test(){
     return this.busesList;
+  }
+
+  SendData(data: any): Observable<any> {
+    console.log(data);
+    
+    return this.http.post(this.url, {}).pipe(
+      retry(4),
+      timeout(10000)
+    );
   }
 
 
