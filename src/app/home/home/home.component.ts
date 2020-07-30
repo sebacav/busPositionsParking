@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
         // Socs
         this.parkings[element.parking_zone].socsGun1 = [];
         this.parkings[element.parking_zone].socsGun2 = [];
-        
+
         if (element.gun == 1){
           this.parkings[element.parking_zone].socsGun1.push( this.setStateOfChargeClass(element) );
         } else {
@@ -79,7 +79,17 @@ export class HomeComponent implements OnInit {
 
       }
 
+      console.log("Fila Gun1 sin ordenar: ", this.parkings[element.parking_zone].socsGun1);
+      console.log("Fila Gun1 ordenada: ", this.sortGunList(this.parkings[element.parking_zone].socsGun1));
+
+
+      console.log("Fila Gun2 sin ordenar: ", this.parkings[element.parking_zone].socsGun2);      
+      console.log("Fila Gun2 ordenada: ", this.sortGunList(this.parkings[element.parking_zone].socsGun2));
+      
+
     });
+
+
 
     console.log(this.parkings);
   }
@@ -90,17 +100,40 @@ export class HomeComponent implements OnInit {
     if (element.soc > 0 ){
       aux =  {
         percent: "% "+element.soc.toString(),
-        stateClass: "occupied"
+        stateClass: "occupied",
+        priority: element.priority,
       }
     } else {
       aux =  {
         percent: "Free",
-        stateClass: "free"
+        stateClass: "free",
+        priority: element.priority,
       }
     }
+
+    
     console.log(aux);
     
     return aux
+  }
+
+  sortGunList( lista: socGun[] ): socGun[]{
+
+    var aux: socGun[];
+
+    aux = lista.sort( (a,b) => a.priority - b.priority)
+
+    return aux;
+  }
+
+  compare( a, b ) {
+    if ( a.last_nom < b.last_nom ){
+      return -1;
+    }
+    if ( a.last_nom > b.last_nom ){
+      return 1;
+    }
+    return 0;
   }
 
 }

@@ -26,4 +26,5 @@ export class Parking {
 export class socGun {
     percent: string;
     stateClass: string;
+    priority: number;
 }
