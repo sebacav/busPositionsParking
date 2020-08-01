@@ -21,7 +21,7 @@
 
 <br>
 
-<div class="parkings">
+<div *ngIf="!isLoading"  class="parkings">
 
     <!-- <mat-card class="parkinCard">
         <mat-card-header>
@@ -95,3 +95,6 @@
     </mat-card>
 
 </div>
+<p *ngIf="isLoading" class="spinner"></p>
+<mat-progress-spinner *ngIf="isLoading" mode="indeterminate" class="spinner"></mat-progress-spinner>
+<p *ngIf="isLoading" class="spinner"></p>

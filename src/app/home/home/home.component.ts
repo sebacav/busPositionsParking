@@ -18,6 +18,8 @@ export class HomeComponent implements OnInit {
 
   busTest: Bus = new Bus();
 
+  isLoading: Boolean = false;
+
   constructor(
     private busService: BusService,
     private fb: FormBuilder
@@ -47,6 +49,7 @@ export class HomeComponent implements OnInit {
   }
 
   sendTest(){
+    this.isLoading = true;
     console.log(this.dataForm.value);
     this.busTest.soc = this.dataForm.value.soc;
     this.busTest.priority = this.dataForm.value.priority;
@@ -60,6 +63,11 @@ export class HomeComponent implements OnInit {
       (resp: Bus[])=>{
         this.busesList = [];
         this.createParkings(resp);
+        
+        setTimeout( () => {
+          this.isLoading = false;
+        }, 1000 );
+        
       }
     );
     
