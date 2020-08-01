@@ -164,5 +164,18 @@ export class BusService {
     );
   }
 
+  SortParkings(data: Bus): Promise<Bus[]>{
+
+    return new Promise((resolve)=>{
+      this.jsonRecibido.forEach(element =>{
+        if(element.charger == 'C2'){
+          element.soc = data.soc;
+        }
+      });
+      this.busesList = this.jsonRecibido;
+      resolve(this.busesList);
+    })
+  }
+
 
 }

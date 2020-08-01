@@ -50,8 +50,19 @@ export class HomeComponent implements OnInit {
     console.log(this.dataForm.value);
     this.busTest.soc = this.dataForm.value.soc;
     this.busTest.priority = this.dataForm.value.priority;
-    this.busTest.gun = 1;
-    this.UpdateSample(this.busTest);
+    // this.busTest.gun = 1;
+    // this.UpdateSample(this.busTest);
+    console.log("ANTES: ",this.busesList);
+    // this.busesList = [];
+    this.parkings = {};
+    this.positionLines = {};
+    this.busService.SortParkings(this.busTest).then(
+      (resp: Bus[])=>{
+        this.busesList = [];
+        this.createParkings(resp);
+      }
+    );
+    
   }
 
   createParkings(buses: Bus[]){
@@ -120,7 +131,7 @@ export class HomeComponent implements OnInit {
       
     });
 
-    console.log(this.parkings);
+    console.log("AHORA: ",this.parkings);
   }
 
   setStateOfChargeClass(element: Bus): socGun{
@@ -141,7 +152,7 @@ export class HomeComponent implements OnInit {
     }
 
     
-    console.log(aux);
+    // console.log(aux);
     
     return aux
   }
