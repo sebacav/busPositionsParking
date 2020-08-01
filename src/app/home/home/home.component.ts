@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BusService } from 'src/app/shared/services/bus.service';
-import { Bus, Parking, socGun } from '../../../app/shared/models/Bus';
+import { Bus, Parking, socGun, PositionLine } from '../../../app/shared/models/Bus';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   dataForm: FormGroup;
 
   parkings: { [index: number]: Parking; } = {};
+  positionLines: { [index: number]: PositionLine; } = {};
 
   constructor(
     private busService: BusService,
@@ -45,46 +46,117 @@ export class HomeComponent implements OnInit {
 
   createParkings(){
     this.busesList.forEach(element => {
+// console.log(element.position_line);
 
       if (this.parkings[element.parking_zone] == undefined){
         this.parkings[element.parking_zone] = new Parking();
 
+        // this.positionLines[element.position_line] = new PositionLine();
+        this.parkings[element.parking_zone].positionLine = [];
+        this.parkings[element.parking_zone].positionLine[element.position_line]= new PositionLine();
+
         // Chargers
-        this.parkings[element.parking_zone].chargers = [];
-        this.parkings[element.parking_zone].chargers.push(element.charger);
+        this.parkings[element.parking_zone].positionLine[element.position_line].chargers = [];
+        this.parkings[element.parking_zone].positionLine[element.position_line].chargers.push(element.charger);
 
         // Prioritys
-        this.parkings[element.parking_zone].prioritys = [];
-        this.parkings[element.parking_zone].prioritys.push(element.priority);
+        this.parkings[element.parking_zone].positionLine[element.position_line].prioritys = [];
+        this.parkings[element.parking_zone].positionLine[element.position_line].prioritys.push(element.priority);
 
         // Socs
-        this.parkings[element.parking_zone].socsGun1 = [];
-        this.parkings[element.parking_zone].socsGun2 = [];
+        this.parkings[element.parking_zone].positionLine[element.position_line].socsGun1 = [];
+        this.parkings[element.parking_zone].positionLine[element.position_line].socsGun2 = [];
 
         if (element.gun == 1){
-          this.parkings[element.parking_zone].socsGun1.push( this.setStateOfChargeClass(element) );
+          this.parkings[element.parking_zone].positionLine[element.position_line].socsGun1.push(this.setStateOfChargeClass(element));
         } else {
-          this.parkings[element.parking_zone].socsGun2.push(this.setStateOfChargeClass(element));
+          this.parkings[element.parking_zone].positionLine[element.position_line].socsGun2.push(this.setStateOfChargeClass(element));
         }
+
+                // // Chargers
+                // this.parkings[element.parking_zone].chargers = [];
+                // this.parkings[element.parking_zone].chargers.push(element.charger);
+        
+                // // Prioritys
+                // this.parkings[element.parking_zone].prioritys = [];
+                // this.parkings[element.parking_zone].prioritys.push(element.priority);
+        
+                // // Socs
+                // this.parkings[element.parking_zone].socsGun1 = [];
+                // this.parkings[element.parking_zone].socsGun2 = [];
+        
+                // if (element.gun == 1){
+                //   this.parkings[element.parking_zone].socsGun1.push( this.setStateOfChargeClass(element) );
+                // } else {
+                //   this.parkings[element.parking_zone].socsGun2.push(this.setStateOfChargeClass(element));
+                // }
       } else {
-        if (!this.parkings[element.parking_zone].chargers.includes(element.charger)){
-          this.parkings[element.parking_zone].chargers.push(element.charger);
+
+        if(this.parkings[element.parking_zone].positionLine[element.position_line] == undefined){
+          // console.log("undefined");
+          this.parkings[element.parking_zone].positionLine[element.position_line] = new PositionLine();
+          
+          
+          // Chargers
+          this.parkings[element.parking_zone].positionLine[element.position_line].chargers = [];
+          this.parkings[element.parking_zone].positionLine[element.position_line].chargers.push(element.charger);
+
+          // Prioritys
+          this.parkings[element.parking_zone].positionLine[element.position_line].prioritys = [];
+          this.parkings[element.parking_zone].positionLine[element.position_line].prioritys.push(element.priority);
+
+          // Socs
+          this.parkings[element.parking_zone].positionLine[element.position_line].socsGun1 = [];
+          this.parkings[element.parking_zone].positionLine[element.position_line].socsGun2 = [];
+
+          if (element.gun == 1){
+            this.parkings[element.parking_zone].positionLine[element.position_line].socsGun1.push(this.setStateOfChargeClass(element));
+          } else {
+            this.parkings[element.parking_zone].positionLine[element.position_line].socsGun2.push(this.setStateOfChargeClass(element));
+          }
+        } else {
+          if (!this.parkings[element.parking_zone].positionLine[element.position_line].chargers.includes(element.charger)){
+            this.parkings[element.parking_zone].positionLine[element.position_line].chargers.push(element.charger);
+          }
+
+          if (element.gun == 1){
+            this.parkings[element.parking_zone].positionLine[element.position_line].socsGun1.push(this.setStateOfChargeClass(element));
+          } else {
+            this.parkings[element.parking_zone].positionLine[element.position_line].socsGun2.push(this.setStateOfChargeClass(element));
+          }
         }
 
-        if (element.gun == 1){
-          this.parkings[element.parking_zone].socsGun1.push(this.setStateOfChargeClass(element));
-        } else {
-          this.parkings[element.parking_zone].socsGun2.push(this.setStateOfChargeClass(element));
-        }
+        // if (!this.parkings[element.parking_zone].positionLine[element.position_line].chargers.includes(element.charger)){
+        //   this.parkings[element.parking_zone].positionLine[element.position_line].chargers.push(element.charger);
+        // }
+
+        // if (element.gun == 1){
+        //   this.parkings[element.parking_zone].positionLine[element.position_line].socsGun1.push(this.setStateOfChargeClass(element));
+        // } else {
+        //   this.parkings[element.parking_zone].positionLine[element.position_line].socsGun2.push(this.setStateOfChargeClass(element));
+        // }
+
+
+
+
+        // if (!this.parkings[element.parking_zone].chargers.includes(element.charger)){
+        //   this.parkings[element.parking_zone].chargers.push(element.charger);
+        // }
+
+        // if (element.gun == 1){
+        //   this.parkings[element.parking_zone].socsGun1.push(this.setStateOfChargeClass(element));
+        // } else {
+        //   this.parkings[element.parking_zone].socsGun2.push(this.setStateOfChargeClass(element));
+        // }
 
       }
 
-      console.log("Fila Gun1 sin ordenar: ", this.parkings[element.parking_zone].socsGun1);
-      console.log("Fila Gun1 ordenada: ", this.sortGunList(this.parkings[element.parking_zone].socsGun1));
+      // console.log("Fila Gun1 sin ordenar: ", this.parkings[element.parking_zone].socsGun1);
+      // console.log("Fila Gun1 ordenada: ", this.sortGunList(this.parkings[element.parking_zone].socsGun1));
 
 
-      console.log("Fila Gun2 sin ordenar: ", this.parkings[element.parking_zone].socsGun2);      
-      console.log("Fila Gun2 ordenada: ", this.sortGunList(this.parkings[element.parking_zone].socsGun2));
+      // console.log("Fila Gun2 sin ordenar: ", this.parkings[element.parking_zone].socsGun2);      
+      // console.log("Fila Gun2 ordenada: ", this.sortGunList(this.parkings[element.parking_zone].socsGun2));
       
 
     });

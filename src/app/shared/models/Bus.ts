@@ -3,6 +3,7 @@ export class Bus {
     marquesina: string;
     priority: number;
     parking_zone: number;
+    position_line: number;
     soc: number;
     gun: number;
 }
@@ -16,10 +17,7 @@ export class Bus {
 // }
 
 export class Parking {
-    chargers: string[];
-    prioritys: number[];
-    socsGun1: socGun[];
-    socsGun2: socGun[];
+    positionLine: PositionLine[];
     constructor(){}
 }
 
@@ -27,4 +25,12 @@ export class socGun {
     percent: string;
     stateClass: string;
     priority: number;
+}
+
+export class PositionLine {
+    chargers: string[];
+    prioritys: number[];
+    socsGun1: socGun[];
+    socsGun2: socGun[];
+    constructor(){}
 }
