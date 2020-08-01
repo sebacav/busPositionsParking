@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
     this.busesList = this.busService.Test();
     this.dataForm = this.fb.group({
       soc: ['', Validators.required],
-      charger: ['', Validators.required],
+      priority: ['', Validators.required],
     });
     this.createParkings(this.busesList);
   }
@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
     console.log(this.dataForm.value);
     var data = {
       soc: this.dataForm.value.soc,
-      charger: this.dataForm.value.charger,
+      priority: this.dataForm.value.priority,
     }
     this.busService.SendData(data).subscribe(
       resp => {
@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
   sendTest(){
     console.log(this.dataForm.value);
     this.busTest.soc = this.dataForm.value.soc;
-    this.busTest.charger = this.dataForm.value.charger;
+    this.busTest.priority = this.dataForm.value.priority;
     this.busTest.gun = 1;
     this.UpdateSample(this.busTest);
   }
@@ -147,14 +147,16 @@ export class HomeComponent implements OnInit {
   }
 
   UpdateSample(data: Bus){
-    this.parkings = {};
-    this.positionLines = {};
-    this.busesList.forEach(element => {
-      if(element.charger == data.charger && element.gun == data.gun){
-        element.soc = data.soc;
-      }
-    });
-    this.createParkings(this.busesList)
+    console.log(data);
+    
+    // this.parkings = {};
+    // this.positionLines = {};
+    // this.busesList.forEach(element => {
+    //   if(element.charger == data.charger && element.gun == data.gun){
+    //     element.soc = data.soc;
+    //   }
+    // });
+    // this.createParkings(this.busesList)
     
   }
 
