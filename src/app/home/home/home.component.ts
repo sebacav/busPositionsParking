@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
       (resp: Bus[])=>{
         this.busesList = [];
         this.createParkings(resp);
-        
+
         setTimeout( () => {
           this.isLoading = false;
         }, 1000 );
@@ -138,6 +138,7 @@ export class HomeComponent implements OnInit {
       }
       
     });
+    this.ReversingArrays();
 
     console.log("AHORA: ",this.parkings);
   }
@@ -177,6 +178,23 @@ export class HomeComponent implements OnInit {
     // });
     // this.createParkings(this.busesList)
     
+  }
+
+
+  ReversingArrays(){
+    for (let parkingsKey in this.parkings){
+      let parkingsValue = this.parkings[parkingsKey];
+
+      for (let lineKey in parkingsValue.positionLine){
+        let linesValue = parkingsValue.positionLine[lineKey];
+
+        linesValue.chargers = linesValue.chargers.reverse();
+        linesValue.socsGun1 = linesValue.socsGun1.reverse();
+        linesValue.socsGun2 = linesValue.socsGun2.reverse();
+      }
+
+      
+    }
   }
 
 }
