@@ -16,6 +16,8 @@ export class HomeComponent implements OnInit {
   parkings: { [index: number]: Parking; } = {};
   positionLines: { [index: number]: PositionLine; } = {};
 
+  busTest: Bus = new Bus();
+
   constructor(
     private busService: BusService,
     private fb: FormBuilder
@@ -25,10 +27,10 @@ export class HomeComponent implements OnInit {
       soc: ['', Validators.required],
       charger: ['', Validators.required],
     });
+    this.createParkings(this.busesList);
   }
 
   ngOnInit() {
-    this.createParkings();
   }
 
   send(){
@@ -44,14 +46,20 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  createParkings(){
-    this.busesList.forEach(element => {
-// console.log(element.position_line);
+  sendTest(){
+    console.log(this.dataForm.value);
+    this.busTest.soc = this.dataForm.value.soc;
+    this.busTest.charger = this.dataForm.value.charger;
+    this.busTest.gun = 1;
+    this.UpdateSample(this.busTest);
+  }
+
+  createParkings(buses: Bus[]){
+    buses.forEach(element => {
 
       if (this.parkings[element.parking_zone] == undefined){
         this.parkings[element.parking_zone] = new Parking();
 
-        // this.positionLines[element.position_line] = new PositionLine();
         this.parkings[element.parking_zone].positionLine = [];
         this.parkings[element.parking_zone].positionLine[element.position_line]= new PositionLine();
 
@@ -73,29 +81,11 @@ export class HomeComponent implements OnInit {
           this.parkings[element.parking_zone].positionLine[element.position_line].socsGun2.push(this.setStateOfChargeClass(element));
         }
 
-                // // Chargers
-                // this.parkings[element.parking_zone].chargers = [];
-                // this.parkings[element.parking_zone].chargers.push(element.charger);
-        
-                // // Prioritys
-                // this.parkings[element.parking_zone].prioritys = [];
-                // this.parkings[element.parking_zone].prioritys.push(element.priority);
-        
-                // // Socs
-                // this.parkings[element.parking_zone].socsGun1 = [];
-                // this.parkings[element.parking_zone].socsGun2 = [];
-        
-                // if (element.gun == 1){
-                //   this.parkings[element.parking_zone].socsGun1.push( this.setStateOfChargeClass(element) );
-                // } else {
-                //   this.parkings[element.parking_zone].socsGun2.push(this.setStateOfChargeClass(element));
-                // }
       } else {
 
         if(this.parkings[element.parking_zone].positionLine[element.position_line] == undefined){
-          // console.log("undefined");
-          this.parkings[element.parking_zone].positionLine[element.position_line] = new PositionLine();
           
+          this.parkings[element.parking_zone].positionLine[element.position_line] = new PositionLine();
           
           // Chargers
           this.parkings[element.parking_zone].positionLine[element.position_line].chargers = [];
@@ -126,42 +116,9 @@ export class HomeComponent implements OnInit {
           }
         }
 
-        // if (!this.parkings[element.parking_zone].positionLine[element.position_line].chargers.includes(element.charger)){
-        //   this.parkings[element.parking_zone].positionLine[element.position_line].chargers.push(element.charger);
-        // }
-
-        // if (element.gun == 1){
-        //   this.parkings[element.parking_zone].positionLine[element.position_line].socsGun1.push(this.setStateOfChargeClass(element));
-        // } else {
-        //   this.parkings[element.parking_zone].positionLine[element.position_line].socsGun2.push(this.setStateOfChargeClass(element));
-        // }
-
-
-
-
-        // if (!this.parkings[element.parking_zone].chargers.includes(element.charger)){
-        //   this.parkings[element.parking_zone].chargers.push(element.charger);
-        // }
-
-        // if (element.gun == 1){
-        //   this.parkings[element.parking_zone].socsGun1.push(this.setStateOfChargeClass(element));
-        // } else {
-        //   this.parkings[element.parking_zone].socsGun2.push(this.setStateOfChargeClass(element));
-        // }
-
       }
-
-      // console.log("Fila Gun1 sin ordenar: ", this.parkings[element.parking_zone].socsGun1);
-      // console.log("Fila Gun1 ordenada: ", this.sortGunList(this.parkings[element.parking_zone].socsGun1));
-
-
-      // console.log("Fila Gun2 sin ordenar: ", this.parkings[element.parking_zone].socsGun2);      
-      // console.log("Fila Gun2 ordenada: ", this.sortGunList(this.parkings[element.parking_zone].socsGun2));
       
-
     });
-
-
 
     console.log(this.parkings);
   }
@@ -189,23 +146,16 @@ export class HomeComponent implements OnInit {
     return aux
   }
 
-  sortGunList( lista: socGun[] ): socGun[]{
-
-    var aux: socGun[];
-
-    aux = lista.sort( (a,b) => a.priority - b.priority)
-
-    return aux;
-  }
-
-  compare( a, b ) {
-    if ( a.last_nom < b.last_nom ){
-      return -1;
-    }
-    if ( a.last_nom > b.last_nom ){
-      return 1;
-    }
-    return 0;
+  UpdateSample(data: Bus){
+    this.parkings = {};
+    this.positionLines = {};
+    this.busesList.forEach(element => {
+      if(element.charger == data.charger && element.gun == data.gun){
+        element.soc = data.soc;
+      }
+    });
+    this.createParkings(this.busesList)
+    
   }
 
 }

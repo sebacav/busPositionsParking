@@ -1,6 +1,6 @@
 <br>
 
-<form [formGroup]="dataForm" (ngSubmit)="send()">
+<form [formGroup]="dataForm" (ngSubmit)="sendTest()">
     <mat-card class="simulator">
         <mat-card-header>
             <mat-card-title>Simulate</mat-card-title>
@@ -76,13 +76,19 @@
             <mat-card *ngFor="let line of parkings[parkin.key].positionLine | keyvalue"  class="line">
                 <mat-card-subtitle>Line {{line.key}} </mat-card-subtitle>
                 <div class="positions">
+                    <mat-icon class="arrow">keyboard_backspace</mat-icon>
                     <mat-card *ngFor="let item of parkings[parkin.key].positionLine[line.key].socsGun1" [ngClass]="item.stateClass">{{item.percent}}</mat-card>
+                    <mat-icon class="arrow">keyboard_backspace</mat-icon>
                 </div>
                 <div class="chargers">
+                    <p></p>
                     <p *ngFor="let item of parkings[parkin.key].positionLine[line.key].chargers">{{item}}</p>
+                    <p></p>
                 </div>
                 <div class="positions">
+                    <mat-icon class="arrow">keyboard_backspace</mat-icon>
                     <mat-card *ngFor="let item of parkings[parkin.key].positionLine[line.key].socsGun2" [ngClass]="item.stateClass">{{item.percent}}</mat-card>
+                    <mat-icon class="arrow">keyboard_backspace</mat-icon>
                 </div>
             </mat-card>
         </mat-card-content>

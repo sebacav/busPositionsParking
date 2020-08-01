@@ -14,6 +14,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    font-weight: bold;
+
+    // padding-bottom: -10px;
+    // padding-top: -10px;
 }
 
 .occupied{
@@ -21,6 +25,14 @@
     font-size: medium;
     font-weight: bold;
     border-style: solid;
+
+    margin-left: 2px;
+    margin-right: 2px;
+    // margin-top: 5px;
+    // margin-bottom: 5px;
+
+    padding-bottom: 1px;
+    padding-top: 1px;
 }
 
 .free{
@@ -28,6 +40,14 @@
     font-size: medium;
     font-weight: bold;
     border-style: solid;
+
+    margin-left: 2px;
+    margin-right: 2px;
+    // margin-top: 5px;
+    // margin-bottom: 5px;
+
+    padding-bottom: 1px;
+    padding-top: 1px;
 }
 
 .chargerIcon{
@@ -43,14 +63,27 @@
     display: flex;
     flex-direction: row;
     justify-content: center ;
+
+    padding-bottom: 1px;
+    padding-top: 1px;
+    margin-left: 200px;
+    margin-right: 200px;
 }
 
 .line{
-    background-color: cadetblue;
+    background-color: white;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-bottom: 5px;
 }
 
 .mat-card-subtitle{
     color: blue($color: #000000);
     font-size: medium;
     font-weight: bold;
+}
+
+.arrow{
+    padding-bottom: 2px;
+    padding-top: 10px;
 }
