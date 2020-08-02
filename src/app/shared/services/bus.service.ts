@@ -3,6 +3,8 @@ import { Bus } from '../models/Bus';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { timeout, retry, catchError, map } from 'rxjs/operators'
+import { resolve } from 'url';
+import { element } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,14 @@ export class BusService {
 
   private url = 'http://test.cl/dasd'
 
-  busesList: Bus[] = []
+  busesList: Bus[] = [];
+  onePrioritys: Bus[] = [];
+  twoPrioritys: Bus[] = [];
+  threePrioritys: Bus[] = [];
+
+  freeBus: Bus = new Bus();
+  newBus: Bus = new Bus();
+
   /*
   jsonRecibido = [
     {"charger": "C1", "marquesina": "m1", "priority": 1, "parking_zone": 1, "soc": 50, "gun": 1 },
@@ -97,7 +106,7 @@ export class BusService {
     {"charger": "C20", "marquesina": "m5", "priority": 2, "parking_zone": 2, "soc": null, "gun": 1, "position_line": 1 },
     {"charger": "C21", "marquesina": "m6", "priority": 3, "parking_zone": 2, "soc": null, "gun": 1, "position_line": 1 },
 
-    {"charger": "C22", "marquesina": "m4", "priority": 1, "parking_zone": 2, "soc": null, "gun": 1, "position_line": 2 },
+    {"charger": "C22", "marquesina": "m4", "priority": 1, "parking_zone": 2, "soc": 21, "gun": 1, "position_line": 2 },
     {"charger": "C23", "marquesina": "m5", "priority": 2, "parking_zone": 2, "soc": null, "gun": 1, "position_line": 2 },
     {"charger": "C24", "marquesina": "m6", "priority": 3, "parking_zone": 2, "soc": null, "gun": 1, "position_line": 2 },
 
@@ -140,7 +149,8 @@ export class BusService {
 
     {"charger": "C34", "marquesina": "m4", "priority": 1, "parking_zone": 2, "soc": 50, "gun": 2, "position_line": 6 },
     {"charger": "C35", "marquesina": "m5", "priority": 2, "parking_zone": 2, "soc": null, "gun": 2, "position_line": 6 },
-    {"charger": "C36", "marquesina": "m6", "priority": 3, "parking_zone": 2, "soc": null, "gun": 2, "position_line": 6 }
+    {"charger": "C36", "marquesina": "m6", "priority": 3, "parking_zone": 2, "soc": null, "gun": 2, "position_line": 6 },
+    // {"charger": "C22", "marquesina": "m4", "priority": 1, "parking_zone": 2, "soc": 66, "gun": 2, "position_line": 2 }
 
   ]
   
@@ -175,6 +185,53 @@ export class BusService {
       this.busesList = this.jsonRecibido;
       resolve(this.busesList);
     })
+  }
+
+
+  Sorting(data: Bus): Promise<Bus[]>{
+    
+    return new Promise((resolve)=>{
+
+      for (let index = 0; index < this.busesList.length; index++) {
+        const bus = this.busesList[index];
+
+        if(bus.soc == null && bus.priority == 1){
+          let positionAux = this.busesList[index];
+          console.log("encontrado: ",positionAux);
+          
+          this.freeBus = {
+            charger: positionAux.charger,
+            gun: positionAux.gun,
+            marquesina: positionAux.marquesina,
+            parking_zone: positionAux.parking_zone,
+            position_line: positionAux.position_line,
+            priority: positionAux.priority,
+            soc: positionAux.soc
+          }
+          this.onePrioritys.push(this.freeBus);
+          
+          if(this.onePrioritys.length > 1){
+
+          } else {
+            this.busesList.forEach(element => {
+              if(
+                element.charger == positionAux.charger && 
+                element.gun == positionAux.gun && 
+                element.priority == positionAux.priority && 
+                element.marquesina == positionAux.marquesina && 
+                element.parking_zone == positionAux.parking_zone &&
+                element.position_line == positionAux.position_line){                  
+                  element.soc = data.soc;
+                  resolve(this.busesList)
+              }
+            });
+          }
+        }
+        
+      }
+      
+      resolve(this.busesList);
+    });
   }
 
 

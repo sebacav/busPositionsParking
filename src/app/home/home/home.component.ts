@@ -50,26 +50,30 @@ export class HomeComponent implements OnInit {
 
   sendTest(){
     this.isLoading = true;
+    console.log('Antes: ', this.busesList);
+    
     console.log(this.dataForm.value);
     this.busTest.soc = this.dataForm.value.soc;
     this.busTest.priority = this.dataForm.value.priority;
     // this.busTest.gun = 1;
     // this.UpdateSample(this.busTest);
-    console.log("ANTES: ",this.busesList);
-    // this.busesList = [];
+    // console.log("ANTES: ",this.busesList);
+    this.busesList = [];
     this.parkings = {};
     this.positionLines = {};
-    this.busService.SortParkings(this.busTest).then(
-      (resp: Bus[])=>{
-        this.busesList = [];
-        this.createParkings(resp);
+    // this.busService.SortParkings(this.busTest).then(
+    //   (resp: Bus[])=>{
+    //     this.busesList = [];
+    //     this.createParkings(resp);
 
-        setTimeout( () => {
-          this.isLoading = false;
-        }, 1000 );
+    //     setTimeout( () => {
+    //       this.isLoading = false;
+    //     }, 1000 );
         
-      }
-    );
+    //   }
+    // );
+
+    this.UpdateSample(this.busTest);
     
   }
 
@@ -96,6 +100,7 @@ export class HomeComponent implements OnInit {
 
         if (element.gun == 1){
           this.parkings[element.parking_zone].positionLine[element.position_line].socsGun1.push(this.setStateOfChargeClass(element));
+          // this.parkings[element.parking_zone].positionLine[element.position_line].prioritys
         } else {
           this.parkings[element.parking_zone].positionLine[element.position_line].socsGun2.push(this.setStateOfChargeClass(element));
         }
@@ -140,7 +145,7 @@ export class HomeComponent implements OnInit {
     });
     this.ReversingArrays();
 
-    console.log("AHORA: ",this.parkings);
+    // console.log("AHORA: ",this.parkings);
   }
 
   setStateOfChargeClass(element: Bus): socGun{
@@ -167,8 +172,14 @@ export class HomeComponent implements OnInit {
   }
 
   UpdateSample(data: Bus){
-    console.log(data);
-    
+    this.busService.Sorting(data).then(
+      resp=>{
+        this.createParkings(resp);
+        setTimeout( () => {
+          this.isLoading = false;
+        }, 1000 );
+      }
+    );
     // this.parkings = {};
     // this.positionLines = {};
     // this.busesList.forEach(element => {
