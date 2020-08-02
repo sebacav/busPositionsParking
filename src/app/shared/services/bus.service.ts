@@ -19,7 +19,7 @@ export class BusService {
   threePrioritys: Bus[] = [];
 
   freeBus: Bus = new Bus();
-  newBus: Bus = new Bus();
+  oldBus: Bus = new Bus();
 
   /*
   jsonRecibido = [
@@ -192,6 +192,28 @@ export class BusService {
     
     return new Promise((resolve)=>{
 
+      /**
+       *  CASO IDEAL
+       *    Positions Lines en Priority Uno desocupados = 1
+       */
+      this.GetBusesBySocPriority(null, 1, this.busesList).then(
+        (resp: Bus[])=>{
+          this.onePrioritys = resp
+          if(this.onePrioritys.length > 1){
+
+          } else {
+            this.UpdateBus(data.soc, this.onePrioritys[0], this.busesList).then(
+              (resp: Bus[])=>{
+                this.busesList = resp;
+                resolve(this.busesList);
+              }
+            );
+          }
+        }
+      );
+      
+
+      /*
       for (let index = 0; index < this.busesList.length; index++) {
         const bus = this.busesList[index];
 
@@ -229,8 +251,37 @@ export class BusService {
         }
         
       }
+      */
       
-      resolve(this.busesList);
+      // resolve(this.busesList);
+    });
+  }
+
+
+  // Retorna arreglo de buses/elementos que contienen el soc y priority en la lista buses
+  GetBusesBySocPriority(soc: number, priority: number, buses: Bus[]): Promise<Bus[]>{
+    console.log("Gettint Priority");
+    return new Promise((resolve)=>{
+      let auxBusesList: Bus[] = []; 
+      buses.forEach(bus => {
+        if(bus.soc == soc && bus.priority == priority){
+          auxBusesList.push(bus);
+        }
+      });
+      resolve(auxBusesList);
+    });
+  }
+
+  // Reemplaza bus nuevo por el antiguo en la lista
+  UpdateBus(newSoc: number, oldBus: Bus, busList: Bus[]): Promise<Bus[]>{
+    console.log("updating");
+    return new Promise((resolve)=>{
+      busList.forEach(bus => {
+        if(bus == oldBus){
+          bus.soc = newSoc;
+        }
+      });
+      resolve(busList);
     });
   }
 
