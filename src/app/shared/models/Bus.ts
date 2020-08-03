@@ -32,5 +32,6 @@ export class PositionLine {
     prioritys: number[];
     socsGun1: socGun[];
     socsGun2: socGun[];
+    stateClass: string;
     constructor(){}
 }

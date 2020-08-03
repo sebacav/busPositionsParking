@@ -151,18 +151,29 @@ export class HomeComponent implements OnInit {
   setStateOfChargeClass(element: Bus): socGun{
     var aux: socGun = null;
 
-    if (element.soc > 0 ){
+    if(this.busService.changedBusesList.includes(element)){
+      console.log("si esta");
       aux =  {
         percent: "% "+element.soc.toString(),
-        stateClass: "occupied",
+        stateClass: "changed",
         priority: element.priority,
       }
     } else {
-      aux =  {
-        percent: "Free",
-        stateClass: "free",
-        priority: element.priority,
+
+      if (element.soc > 0 ){
+        aux =  {
+          percent: "% "+element.soc.toString(),
+          stateClass: "occupied",
+          priority: element.priority,
+        }
+      } else {
+        aux =  {
+          percent: "Free",
+          stateClass: "free",
+          priority: element.priority,
+        }
       }
+
     }
 
     
@@ -202,6 +213,23 @@ export class HomeComponent implements OnInit {
         linesValue.chargers = linesValue.chargers.reverse();
         linesValue.socsGun1 = linesValue.socsGun1.reverse();
         linesValue.socsGun2 = linesValue.socsGun2.reverse();
+
+        linesValue.stateClass = "line";
+
+        linesValue.socsGun1.forEach(element => {
+          if(element.stateClass == "changed"){
+            linesValue.stateClass = "lineChanged";
+            console.log("linea cambiada");
+            
+          }
+        });
+
+        linesValue.socsGun2.forEach(element => {
+          if(element.stateClass == "changed"){
+            linesValue.stateClass = "lineChanged";
+            console.log("linea cambiada");
+          }
+        });
       }
 
       

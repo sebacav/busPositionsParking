@@ -71,7 +71,7 @@
 }
 
 .line{
-    background-color: white;
+    background-color:  white;
     padding-bottom: 5px;
     padding-top: 5px;
     margin-bottom: 5px;
@@ -99,4 +99,26 @@
     padding-top: 30px;
     margin-left: 600px;
     margin-right: 200px;
+}
+
+.changed{
+    background-color: blue;
+    font-size: medium;
+    font-weight: bold;
+    border-style: solid;
+
+    margin-left: 2px;
+    margin-right: 2px;
+    // margin-top: 5px;
+    // margin-bottom: 5px;
+
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+
+.lineChanged{
+    background-color: skyblue;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-bottom: 5px;
 }
