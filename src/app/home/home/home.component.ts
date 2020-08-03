@@ -55,24 +55,9 @@ export class HomeComponent implements OnInit {
     console.log(this.dataForm.value);
     this.busTest.soc = this.dataForm.value.soc;
     this.busTest.priority = this.dataForm.value.priority;
-    // this.busTest.gun = 1;
-    // this.UpdateSample(this.busTest);
-    // console.log("ANTES: ",this.busesList);
     this.busesList = [];
     this.parkings = {};
     this.positionLines = {};
-    // this.busService.SortParkings(this.busTest).then(
-    //   (resp: Bus[])=>{
-    //     this.busesList = [];
-    //     this.createParkings(resp);
-
-    //     setTimeout( () => {
-    //       this.isLoading = false;
-    //     }, 1000 );
-        
-    //   }
-    // );
-
     this.UpdateSample(this.busTest);
     
   }
@@ -150,9 +135,9 @@ export class HomeComponent implements OnInit {
 
   setStateOfChargeClass(element: Bus): socGun{
     var aux: socGun = null;
-
-    if(this.busService.changedBusesList.includes(element)){
-      console.log("si esta");
+    // console.log("bus: ", this.busService.changedBus);
+    
+    if(this.busService.changedBus == element){
       aux =  {
         percent: "% "+element.soc.toString(),
         stateClass: "changed",
@@ -191,14 +176,6 @@ export class HomeComponent implements OnInit {
         }, 1000 );
       }
     );
-    // this.parkings = {};
-    // this.positionLines = {};
-    // this.busesList.forEach(element => {
-    //   if(element.charger == data.charger && element.gun == data.gun){
-    //     element.soc = data.soc;
-    //   }
-    // });
-    // this.createParkings(this.busesList)
     
   }
 
@@ -214,20 +191,22 @@ export class HomeComponent implements OnInit {
         linesValue.socsGun1 = linesValue.socsGun1.reverse();
         linesValue.socsGun2 = linesValue.socsGun2.reverse();
 
+        // Actualiza Estilos Linea
         linesValue.stateClass = "line";
 
         linesValue.socsGun1.forEach(element => {
           if(element.stateClass == "changed"){
-            linesValue.stateClass = "lineChanged";
-            console.log("linea cambiada");
+            console.log("cambiado");
             
+            linesValue.stateClass = "lineChanged";
           }
         });
 
         linesValue.socsGun2.forEach(element => {
           if(element.stateClass == "changed"){
+            console.log("cambiado");
+            
             linesValue.stateClass = "lineChanged";
-            console.log("linea cambiada");
           }
         });
       }

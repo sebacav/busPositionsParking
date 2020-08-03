@@ -19,7 +19,7 @@ export class BusService {
   twoPrioritys: Bus[] = [];
   threePrioritys: Bus[] = [];
 
-  changedBusesList: Bus[] = [];
+  changedBus: Bus = new Bus();
 
   freeBus: Bus = new Bus();
   oldBus: Bus = new Bus();
@@ -262,7 +262,9 @@ export class BusService {
             this.UpdateBus(data.soc, this.onePrioritys[0], this.busesList).then(
               (listaBusesUpdated: Bus[])=>{
                 this.busesList = listaBusesUpdated;
-                this.changedBusesList.push(this.onePrioritys[0]); // Lista de cambios en ejecucion
+                this.changedBus = this.onePrioritys[0] // Lista de cambios en ejecucion
+                // console.log(this.changedBus);
+                
                 resolve(this.busesList);
               }
             );
@@ -284,7 +286,7 @@ export class BusService {
                   this.UpdateBus(data.soc, this.twoPrioritys[0], this.busesList).then(
                     (listaBusesUpdated: Bus[])=>{
                       this.busesList = listaBusesUpdated;
-                      this.changedBusesList.push(this.twoPrioritys[0]); // Lista de cambios en ejecucion
+                      this.changedBus = this.twoPrioritys[0]; // Lista de cambios en ejecucion
                       resolve(this.busesList);
                     }
                   );
@@ -306,7 +308,7 @@ export class BusService {
                         this.UpdateBus(data.soc, this.threePrioritys[0], this.busesList).then(
                           (listaBusesUpdated: Bus[])=>{
                             this.busesList = listaBusesUpdated;
-                            this.changedBusesList.push(this.threePrioritys[0]); // Lista de cambios en ejecucion
+                            this.changedBus = this.threePrioritys[0]; // Lista de cambios en ejecucion
                             resolve(this.busesList);
                           }
                         );

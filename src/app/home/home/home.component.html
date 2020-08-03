@@ -70,26 +70,24 @@
             <mat-card-title>Parking Num: {{parkin.key}}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <div *ngFor="let line of parkings[parkin.key].positionLine | keyvalue">
-                <mat-card [ngClass]="line.value.stateClass">
-                    <mat-card-subtitle>Line {{line.key}} </mat-card-subtitle>
-                    <div class="positions">
-                        <mat-icon class="arrow">arrow_forward</mat-icon>
-                        <mat-card *ngFor="let item of parkings[parkin.key].positionLine[line.key].socsGun1" [ngClass]="item.stateClass">{{item.percent}}</mat-card>
-                        <mat-icon class="arrow">arrow_forward</mat-icon>
-                    </div>
-                    <div class="chargers">
-                        <p></p>
-                        <p *ngFor="let item of parkings[parkin.key].positionLine[line.key].chargers">{{item}}</p>
-                        <p></p>
-                    </div>
-                    <div class="positions">
-                        <mat-icon class="arrow">arrow_forward</mat-icon>
-                        <mat-card *ngFor="let item of parkings[parkin.key].positionLine[line.key].socsGun2" [ngClass]="item.stateClass">{{item.percent}}</mat-card>
-                        <mat-icon class="arrow">arrow_forward</mat-icon>
-                    </div>
-                </mat-card>
-            </div>
+            <mat-card *ngFor="let line of parkings[parkin.key].positionLine | keyvalue" [ngClass]="line.value.stateClass">
+                <mat-card-subtitle>Line {{line.key}} </mat-card-subtitle>
+                <div class="positions">
+                    <mat-icon class="arrow">arrow_forward</mat-icon>
+                    <mat-card *ngFor="let item of parkings[parkin.key].positionLine[line.key].socsGun1" [ngClass]="item.stateClass">{{item.percent}}</mat-card>
+                    <mat-icon class="arrow">arrow_forward</mat-icon>
+                </div>
+                <div class="chargers">
+                    <p></p>
+                    <p *ngFor="let item of parkings[parkin.key].positionLine[line.key].chargers">{{item}}</p>
+                    <p></p>
+                </div>
+                <div class="positions">
+                    <mat-icon class="arrow">arrow_forward</mat-icon>
+                    <mat-card *ngFor="let item of parkings[parkin.key].positionLine[line.key].socsGun2" [ngClass]="item.stateClass">{{item.percent}}</mat-card>
+                    <mat-icon class="arrow">arrow_forward</mat-icon>
+                </div>
+            </mat-card>
         </mat-card-content>
     </mat-card>
 
