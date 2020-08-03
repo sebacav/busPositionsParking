@@ -3,6 +3,7 @@ import { Bus } from '../models/Bus';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { timeout, retry, catchError, map } from 'rxjs/operators'
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { resolve } from 'url';
 import { element } from 'protractor';
 
@@ -207,7 +208,8 @@ export class BusService {
   
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private snackBar: MatSnackBar
   ) { 
     this.busesList = this.jsonRecibido;
   }
@@ -305,7 +307,12 @@ export class BusService {
                         );
                       }
                       else if (this.threePrioritys.length == 0){  
+                        console.log("No quedan espacios libres");
                         
+                        resolve(this.busesList);
+                        setTimeout( () => {
+                          this.openSnackBar("There is not positions left", "OK");
+                        }, 1000 );
                       }
                     }
                   );
@@ -348,6 +355,12 @@ export class BusService {
         }
       });
       resolve(busList);
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
     });
   }
 
